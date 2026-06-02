@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class DivisionHandler {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("First Number: ");
+        int first = input.nextInt();
+
+        System.out.print("Second Number: ");
+        int second = input.nextInt();
+
+        try {
+            int result = first / second;
+            System.out.println("Result = " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero");
+        }
+
+        input.close();
+    }
+}

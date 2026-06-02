@@ -1,0 +1,30 @@
+public class SwitchPatternDemo {
+
+    static void identify(Object value) {
+
+        switch (value) {
+            case Integer i ->
+                    System.out.println("Integer Value: " + i);
+
+            case String s ->
+                    System.out.println("String Value: " + s);
+
+            case Double d ->
+                    System.out.println("Double Value: " + d);
+
+            case Long l ->
+                    System.out.println("Long Value: " + l);
+
+            default ->
+                    System.out.println("Unknown Type");
+        }
+    }
+
+    public static void main(String[] args) {
+
+        identify(100);
+        identify("Java");
+        identify(99.99);
+        identify(5000L);
+    }
+}

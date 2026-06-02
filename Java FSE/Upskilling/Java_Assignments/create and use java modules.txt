@@ -1,0 +1,21 @@
+module com.utils {
+    exports com.utils;
+}
+package com.utils;
+
+public class Utility {
+
+    public static String getMessage() {
+        return "Welcome to Java Modules";
+    }
+}
+package com.greetings;
+
+import com.utils.Utility;
+
+public class Greeting {
+
+    public static void main(String[] args) {
+        System.out.println(Utility.getMessage());
+    }
+}

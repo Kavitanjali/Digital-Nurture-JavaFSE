@@ -1,0 +1,19 @@
+import java.util.List;
+
+record Person(String name, int age) {
+}
+
+public class RecordDemo {
+    public static void main(String[] args) {
+
+        List<Person> people = List.of(
+                new Person("John", 25),
+                new Person("David", 17),
+                new Person("Emma", 30)
+        );
+
+        people.stream()
+              .filter(person -> person.age() >= 18)
+              .forEach(System.out::println);
+    }
+}

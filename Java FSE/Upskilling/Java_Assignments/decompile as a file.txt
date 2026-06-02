@@ -1,0 +1,41 @@
+public class DecompileDemo {
+
+    public static void main(String[] args) {
+        System.out.println("Decompile Example");
+    }
+}
+javac DecompileDemo.java
+import java.lang.reflect.Method;
+
+class Employee {
+
+    public void showDetails() {
+        System.out.println("Employee Information");
+    }
+}
+
+public class ReflectionDemo {
+
+    public static void main(String[] args) {
+
+        try {
+
+            Class<?> cls = Class.forName("Employee");
+
+            Method[] methods = cls.getDeclaredMethods();
+
+            for (Method method : methods) {
+                System.out.println(method.getName());
+            }
+
+            Object obj = cls.getDeclaredConstructor().newInstance();
+
+            Method method = cls.getMethod("showDetails");
+
+            method.invoke(obj);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}

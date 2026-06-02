@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class LambdaSort {
+    public static void main(String[] args) {
+
+        List<String> items = new ArrayList<>();
+
+        items.add("Orange");
+        items.add("Apple");
+        items.add("Banana");
+        items.add("Mango");
+
+        Collections.sort(items, (a, b) -> a.compareTo(b));
+
+        items.forEach(System.out::println);
+    }
+}

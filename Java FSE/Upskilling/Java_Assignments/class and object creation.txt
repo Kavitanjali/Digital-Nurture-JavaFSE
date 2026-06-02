@@ -1,0 +1,26 @@
+class Car {
+    String make;
+    String model;
+    int year;
+
+    void displayDetails() {
+        System.out.println(make + " " + model + " " + year);
+    }
+}
+
+public class CarDemo {
+    public static void main(String[] args) {
+        Car firstCar = new Car();
+        firstCar.make = "Honda";
+        firstCar.model = "City";
+        firstCar.year = 2024;
+
+        Car secondCar = new Car();
+        secondCar.make = "Hyundai";
+        secondCar.model = "Creta";
+        secondCar.year = 2023;
+
+        firstCar.displayDetails();
+        secondCar.displayDetails();
+    }
+}

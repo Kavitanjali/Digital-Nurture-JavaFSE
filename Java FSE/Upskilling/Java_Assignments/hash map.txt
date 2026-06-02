@@ -1,0 +1,32 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class StudentDirectory {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        HashMap<Integer, String> students = new HashMap<>();
+
+        System.out.print("Number of Entries: ");
+        int count = input.nextInt();
+        input.nextLine();
+
+        for (int i = 0; i < count; i++) {
+            System.out.print("Student ID: ");
+            int id = input.nextInt();
+            input.nextLine();
+
+            System.out.print("Student Name: ");
+            String name = input.nextLine();
+
+            students.put(id, name);
+        }
+
+        System.out.print("Enter ID to Search: ");
+        int searchId = input.nextInt();
+
+        System.out.println("Student Name: " + students.get(searchId));
+
+        input.close();
+    }
+}

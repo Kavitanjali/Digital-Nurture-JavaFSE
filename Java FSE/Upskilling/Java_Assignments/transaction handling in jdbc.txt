@@ -1,0 +1,50 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+public class MoneyTransfer {
+
+    public static void main(String[] args) {
+
+        String url = "jdbc:mysql://localhost:3306/bankdb";
+        String user = "root";
+        String password = "root";
+
+        try {
+
+            Connection connection =
+                    DriverManager.getConnection(url, user, password);
+
+            connection.setAutoCommit(false);
+
+            PreparedStatement debit =
+                    connection.prepareStatement(
+                            "UPDATE accounts SET balance = balance - ? WHERE id = ?"
+                    );
+
+            debit.setDouble(1, 500);
+            debit.setInt(2, 1);
+
+            debit.executeUpdate();
+
+            PreparedStatement credit =
+                    connection.prepareStatement(
+                            "UPDATE accounts SET balance = balance + ? WHERE id = ?"
+                    );
+
+            credit.setDouble(1, 500);
+            credit.setInt(2, 2);
+
+            credit.executeUpdate();
+
+            connection.commit();
+
+            System.out.println("Transfer Successful");
+
+            connection.close();
+
+        } catch (Exception e) {
+            System.out.println("Transaction Failed");
+        }
+    }
+}
