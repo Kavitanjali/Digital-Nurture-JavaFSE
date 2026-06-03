@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Connect</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    margin:20px;
+}
+nav{
+    background:#222;
+    padding:12px;
+}
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-right:20px;
+}
+#welcomeBanner{
+    background:#1e90ff;
+    color:white;
+    padding:15px;
+    margin-top:15px;
+}
+.highlight{
+    background:yellow;
+    padding:2px 5px;
+}
+.gallery img{
+    width:180px;
+    height:120px;
+    border:3px solid #444;
+}
+form{
+    width:500px;
+    padding:20px;
+    border:1px solid #ccc;
+    border-radius:10px;
+}
+input,select,textarea{
+    width:100%;
+    padding:8px;
+    margin-top:5px;
+    margin-bottom:12px;
+}
+button{
+    padding:10px 20px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#events">Events</a>
+<a href="#contact">Contact</a>
+<a href="help.html" target="_blank">Help</a>
+</nav>
+
+<div id="welcomeBanner">
+<h2>Welcome to Community Connect</h2>
+<p>Register for local events and enjoy
+<span style="color:red;font-weight:bold;">exclusive benefits</span>
+</p>
+</div>
+
+<section id="home">
+<h2 class="highlight">Home</h2>
+<p>Explore activities happening around your area.</p>
+</section>
+
+<section id="events">
+<h2 class="highlight">Events Gallery</h2>
+
+<table class="gallery">
+<tr>
+<td>
+<img src="https://via.placeholder.com/180x120" alt="Music Event" title="Music Event">
+<p>Music Night</p>
+</td>
+
+<td>
+<img src="https://via.placeholder.com/180x120" alt="Sports Event" title="Sports Event">
+<p>Sports Meet</p>
+</td>
+
+<td>
+<img src="https://via.placeholder.com/180x120" alt="Food Event" title="Food Event">
+<p>Food Festival</p>
+</td>
+</tr>
+
+<tr>
+<td>
+<img src="https://via.placeholder.com/180x120" alt="Art Event" title="Art Event">
+<p>Art Show</p>
+</td>
+
+<td>
+<img src="https://via.placeholder.com/180x120" alt="Book Event" title="Book Event">
+<p>Book Fair</p>
+</td>
+
+<td>
+<img src="https://via.placeholder.com/180x120" alt="Community Event" title="Community Event">
+<p>Community Gathering</p>
+</td>
+</tr>
+</table>
+
+<h2>Event Registration</h2>
+
+<form id="eventForm">
+
+<label>Name</label>
+<input type="text" placeholder="Enter your name" required autofocus>
+
+<label>Email</label>
+<input type="email" placeholder="Enter your email" required>
+
+<label>Phone</label>
+<input type="text" id="phone" onblur="checkPhone()">
+
+<label>Date</label>
+<input type="date" required>
+
+<label>Event Type</label>
+<select id="eventType" onchange="showFee()" required>
+<option value="">Select</option>
+<option value="Music">Music</option>
+<option value="Sports">Sports</option>
+<option value="Art">Art</option>
+</select>
+
+<p id="feeDisplay"></p>
+
+<label>Feedback</label>
+<textarea id="feedback" rows="4" onkeyup="countChars()"></textarea>
+
+<p id="charCount">Characters: 0</p>
+
+<button type="button" onclick="confirmRegistration()">Submit</button>
+
+<output id="result"></output>
+
+</form>
+
+<h2>Interactive Image</h2>
+
+<img id="zoomPic"
+src="https://via.placeholder.com/250x150"
+alt="Event"
+ondblclick="zoomImage()">
+
+<h2>Promo Video</h2>
+
+<video width="400" controls oncanplay="videoReady()">
+<source src="sample.mp4" type="video/mp4">
+</video>
+
+<p id="videoMsg"></p>
+
+<h2>Nearby Events</h2>
+
+<button onclick="locateUser()">Find Nearby Events</button>
+
+<p id="locationData"></p>
+
+<button onclick="clearStorage()">Clear Preferences</button>
+
+</section>
+
+<section id="contact">
+<h2>Contact</h2>
+<p>Email: support@communityconnect.com</p>
+</section>
+
+<script>
+
+function checkPhone(){
+    let value=document.getElementById("phone").value;
+    if(value!=="" && !/^[0-9]{10}$/.test(value)){
+        alert("Enter a valid 10 digit phone number");
+    }
+}
+
+function showFee(){
+    let selected=document.getElementById("eventType").value;
+    let fee="";
+
+    if(selected==="Music") fee="Fee: ₹300";
+    else if(selected==="Sports") fee="Fee: ₹500";
+    else if(selected==="Art") fee="Fee: ₹200";
+
+    document.getElementById("feeDisplay").innerHTML=fee;
+
+    localStorage.setItem("savedEvent",selected);
+}
+
+function confirmRegistration(){
+    document.getElementById("result").innerHTML=
+    "Registration submitted successfully";
+}
+
+function zoomImage(){
+    let pic=document.getElementById("zoomPic");
+
+    if(pic.style.width==="500px"){
+        pic.style.width="250px";
+    }else{
+        pic.style.width="500px";
+    }
+}
+
+function countChars(){
+    let count=document.getElementById("feedback").value.length;
+
+    document.getElementById("charCount").innerHTML=
+    "Characters: "+count;
+}
+
+function videoReady(){
+    document.getElementById("videoMsg").innerHTML=
+    "Video ready to play";
+}
+
+window.onload=function(){
+    let saved=localStorage.getItem("savedEvent");
+
+    if(saved){
+        document.getElementById("eventType").value=saved;
+        showFee();
+    }
+};
+
+window.onbeforeunload=function(){
+    return "Form data may be lost.";
+};
+
+function locateUser(){
+
+    let options={
+        enableHighAccuracy:true,
+        timeout:5000,
+        maximumAge:0
+    };
+
+    navigator.geolocation.getCurrentPosition(
+        function(position){
+            document.getElementById("locationData").innerHTML=
+            "Latitude: "+position.coords.latitude+
+            "<br>Longitude: "+position.coords.longitude;
+        },
+        function(error){
+            document.getElementById("locationData").innerHTML=
+            error.message;
+        },
+        options
+    );
+}
+
+function clearStorage(){
+    localStorage.clear();
+    sessionStorage.clear();
+    alert("Preferences cleared");
+}
+
+</script>
+
+</body>
+</html>
